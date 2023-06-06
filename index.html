@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- LINKS -->
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- SCRIPTS -->
+    <script src="./js/main.js" defer></script>
+
+    <title>Abertura de atendimentos</title>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <p>ABERTURA DE ATENDIMENTOS</p>
+      </div>
+
+      <div id="section">
+        <form id="plataforma-de-atendimento">
+          <p>Plataforma de atendimento:</p>
+          <button type="submit" id="opcao-opa">OPA</button>
+          <button type="submit" id="opcao-ramal">Ramal</button>
+
+          <span id="protocolo-opa"></span>
+        </form>
+
+        <form id="infos-contato">
+          <p>Contrato do cliente:</p>
+          <input
+            type="number"
+            name="contrato-cliente"
+            id="contrato-cliente"
+            placeholder="Informe o contrato do cliente"
+          />
+
+          <p>Quem entrou em contato:</p>
+          <input
+            type="text"
+            name="contatante"
+            id="contatante"
+            placeholder="Fulano da silva"
+          />
+          <p>Número:</p>
+          <input
+            type="tel"
+            name="telefone"
+            id="telefone"
+            placeholder="(DDD) Número"
+          />
+          <button type="submit" id="salvar-infos">Salvar</button>
+        </form>
+
+        <form id="motivo-do-atendimento">
+          <p>Motivo do atendimento:</p>
+          <ul id="opções-atendimento">
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="lentidao"
+              />Lentidão
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="sem-conexao"
+              />Sem conexão
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="latencia-alta"
+              />Latência Alta
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="quedas-conexao"
+              />Quedas de conexão
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="configuracao-roteador"
+              />Configuração de Roteador
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="abertura-portas"
+              />Abertura de Portas
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="troca-nome"
+              />Troca de nome da rede Wi-Fi
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="troca-senha"
+              />Troca de senha da rede Wi-Fi
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="login-central"
+              />Dados de acesso a central do assinante
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="ponto-adicional"
+              />Ponto adicional
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="bloqueio"
+              />Bloqueio Financeiro
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="transferencia"
+              />Transferência de Endereço
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="boletos"
+              />Envio de boletos
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="opção-de-atendimento"
+                id="mudanca-ponto"
+              />Mudança de ponto
+            </li>
+          </ul>
+        </form>
+
+        <form id="atendimento-gerado">
+          <p>Atendimento Gerado</p>
+          
+
+          <button type="submit" id="copiar-atendimento">Copiar</button>
+          <button type="submit" id="editar-atendimento">
+            Editar Atendimento
+          </button>
+        </form>
+
+        <div class="atendimento-editado"></div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+/* GERAIS */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    background-color: #DAE5F2;
+
+    list-style: none;
+
+    font-size: 17px;
+}
+
+#container {
+    background-color: #5A6F8A;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    margin: 50px 10%;
+    padding: 50px;
+
+    box-shadow: 5px 5px 5px #b3b3b3;
+    border: 3px solid #4C5B68;
+    border-radius: 3px;
+
+}
+
+#header{
+    margin-bottom: 20px;
+    margin-top: -35px;
+    
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    
+}
+
+#plataforma-de-atendimento {
+    margin-bottom: 15px;
+
+    
+}
+
+#plataforma-de-atendimento p{
+    letter-spacing: 3px;
+
+}
+
+
+button {
+    background-color: #0075FF;
+	color: white;
+    
+    padding: 5px 10px;
+	
+    border-style: none;
+    border-radius: 3px;
+
+    cursor: pointer;
+
+    margin: 20px 0;
+
+    font-size: 17px;
+	
+}
+
+button:active{
+    background-color: #5c5c5c;
+	color: white;
+	
+    border-style: none;
+    border-radius: 3px;
+
+    cursor: pointer;
+
+    margin: 20px 0;
+
+    font-size: 17px;
+	
+}
+
+p{
+    letter-spacing: 3px;
+}
+
+input{
+    padding: 5px;
+    width: 100%;
+
+    margin: 10px 0;
+    
+    border: none;
+    border-bottom: 3px solid #0075FF;
+
+    
+    
+}
+
+input[type=number]:focus,
+input[type=text]:focus,
+input[type=tel]:focus {
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    border-bottom: 3px solid #0075FF;
+    outline: 0; 
+    padding: 8px;
+}
+
+input[type=number]:focus::placeholder,
+input[type=text]:focus::placeholder,
+input[type=tel]:focus::placeholder{ 
+    font-size: 15px;
+
+}
+
+#motivo-do-atendimento{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-top: 15px;
+
+}
+
+ul{
+    list-style: none;
+
+    margin-top: 15px;
+}
+
+li {
+    display: flex;
+    align-items: center;
+}
+
+li input{
+    width: auto;
+}
+
+input[type=radio], input[type=checkbox]  {
+    height: 19px;
+} 
+
+#atendimento-gerado {
+    margin-top: 35px;
+    
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+}
