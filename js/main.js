@@ -6,24 +6,6 @@ function app() {
     btnOpa.addEventListener('click', inserirInput);
     btnRamal.addEventListener('click', removerInput);
 
-    function obterValorOpa(){
-        return "OPA"
-    }
-
-    btnOpa.addEventListener('click', function(e){
-        const valorOpa = obterValorOpa();
-        console.log(valorOpa);
-    })
-
-    function obterValorRamal(){
-        return "Ramal"
-    }
-
-    btnRamal.addEventListener('click', function(e){
-        const valorRamal = obterValorRamal();
-        console.log(valorRamal);
-    })
-
     function inserirInput(e){
         e.preventDefault();
 
@@ -56,6 +38,25 @@ function app() {
             elemento.removeChild(elemento.firstChild);
           }
     }
+
+    btnOpa.addEventListener('click', function(e){
+        const valorOpa = obterValorOpa();
+        console.log(valorOpa);
+    })
+
+    btnRamal.addEventListener('click', function(e){
+        const valorRamal = obterValorRamal();
+        console.log(valorRamal);
+    })
+
+    function obterValorOpa(){
+        return "OPA"
+    }
+
+    function obterValorRamal(){
+        return "Ramal"
+    }
+
     
     const form = document.querySelector('#infos-contato');
 
@@ -76,23 +77,6 @@ function app() {
             telefone: telefoneInfo.value
         })
     }
-
-    const atendimentoCompleto = document.querySelector('#atendimento-gerado');
-
-    const atendInfos = document.createElement('div')
-    
-    atendInfos.id = "atendimento-template";
-
-    const paragrafo = document.createElement('p');
-
-    const contatoVia = document.createElement('span');
-
-    paragrafo.innerHTML = 'Cliente entrou em contato via:'
-
-    contatoVia.innerHTML = obterValorOpa();
-
-    atendInfos.appendChild(paragrafo);
-    atendInfos.appendChild(contatoVia);
 
 }
 
