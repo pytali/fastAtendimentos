@@ -1,9 +1,10 @@
 
 const token = '82:4d22b851ff516dc5bf776bea0b029d028bf82204380d85bfe00ccc4b5c307d47';
 
-fetch('https://ixc.brasildigital.net.br/webservice/v1/cliente/id=28698', {
+fetch('https://ixc.brasildigital.net.br/webservice/v1/cliente', {
   headers: {
-    'Authorization': `Bearer ${token}`
+    'Authorization': `Bearer ${token}`,
+    'Access-Control-Allow-Origin' : `*`,
   }
 })
   .then(response => response.json())

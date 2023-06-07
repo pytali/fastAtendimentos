@@ -10,6 +10,7 @@ function app() {
         e.preventDefault();
 
         if(!document.getElementById('protocolo-input')){
+
             const inserirProtocolo = document.querySelector('#protocolo-opa');
 
             const protocoloInput = document.createElement('input');
@@ -22,10 +23,11 @@ function app() {
             protocoloInput.placeholder = "Informe o protocolo";
 
             paragrafo.innerHTML = 'Protocolo:';
-            
-            inserirProtocolo.appendChild(paragrafo);
 
             inserirProtocolo.appendChild(protocoloInput);
+            
+            inserirProtocolo.appendChild(paragrafo);
+            
         }
     }
 
@@ -39,44 +41,48 @@ function app() {
           }
     }
 
-    btnOpa.addEventListener('click', function(e){
-        const valorOpa = obterValorOpa();
-        console.log(valorOpa);
-    })
-
-    btnRamal.addEventListener('click', function(e){
-        const valorRamal = obterValorRamal();
-        console.log(valorRamal);
-    })
-
-    function obterValorOpa(){
-        return "OPA"
-    }
-
-    function obterValorRamal(){
-        return "Ramal"
-    }
-
-    
     const form = document.querySelector('#infos-contato');
 
-    form.addEventListener('submit', coletarInfos);
+            form.addEventListener('submit', coletarInfos);
 
-    infosColetadas = [];
+            infosColetadas = [];
 
-    function coletarInfos(e){
-        e.preventDefault();
+            function coletarInfos(e){
+                e.preventDefault();
 
-        const contratoInfo = form.querySelector('#contrato-cliente');
-        const contanteInfo = form.querySelector('#contatante');
-        const telefoneInfo = form.querySelector('#telefone');
+                const contratoInfo = form.querySelector('#contrato-cliente');
+                const contanteInfo = form.querySelector('#contatante');
+                const telefoneInfo = form.querySelector('#telefone');
 
-        infosColetadas.push({
-            contratoCliente: contratoInfo.value,
-            contato: contanteInfo.value,
-            telefone: telefoneInfo.value
-        })
-    }
+                infosColetadas.push({
+                    contratoCliente: contratoInfo.value,
+                    contato: contanteInfo.value,
+                    telefone: telefoneInfo.value
+                })
+
+                const btnGerarAtendimento = document.querySelector('#gerar-atendimento');
+
+                btnGerarAtendimento.addEventListener('click', criaAtendimento);
+            
+                function criaAtendimento(e){
+                    e.preventDefault();
+            
+                    const inserirInfos = document.querySelector('#atendimento-gerado');
+                    
+                    const infosInformadas = document.createElement('div')
+
+                    infosInformadas = infosColetadas;
+
+                    inserirInfos.appendChild(infosInformadas);
+            
+            
+                }
+
+            }
+
+
+    
+
 
 }
 
