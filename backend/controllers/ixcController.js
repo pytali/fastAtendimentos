@@ -4,7 +4,8 @@ const token = process.env.TOKEN_BD; // variable of token
 
 // get clients fanta *Para testes*
 const getClients = async (req, res) => {
-    const fetchData = await fetch(
+    const { id } = req.query;
+    const fetchDataCliente = await fetch(
         "https://ixc.brasildigital.net.br/webservice/v1/cliente",
         {
             method: "POST",
@@ -15,8 +16,8 @@ const getClients = async (req, res) => {
             },
             body: JSON.stringify({
                 qtype: "cliente.id",
-                query: "0",
-                oper: ">",
+                query: `${id}`,
+                oper: "=",
                 page: "1",
                 rp: "2",
                 sortorder: "desc",
@@ -25,8 +26,57 @@ const getClients = async (req, res) => {
     )
         .then((data) => data.json())
         .catch((error) => console.log(error));
+    const fetchDataLogin = await fetch(
+        "https://ixc.brasildigital.net.br/webservice/v1/radusuarios",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Basic " + Buffer.from(token).toString("base64"),
+                ixcsoft: "listar",
+            },
+            body: JSON.stringify({
+                qtype: "id_cliente",
+                query: `${id}`,
+                oper: "=",
+                page: "1",
+                rp: "2",
+                sortorder: "desc",
+            }),
+        }
+    )
+        .then((data) => data.json())
+        .catch((error) => {
+            return error;
+        });
 
-    return res.status(200).json(fetchData.registros);
+    const normalizeData = (
+        [{ id, razao, telefone_celular, cpf_cnpj }],
+        [{ online, login, senha, conexao, ip }]
+    ) => {
+        const newData = {
+            contrato: id,
+            nome: razao,
+            contato_celular: telefone_celular,
+            cpf_cnpj,
+            logins: [
+                {
+                    login,
+                    online,
+                    senha,
+                    mac_onu: conexao,
+                    ip,
+                },
+            ],
+        };
+        return newData;
+    };
+
+    return res
+        .status(200)
+        .json(
+            normalizeData(fetchDataCliente.registros, fetchDataLogin.registros)
+        );
 };
 
 module.exports = {
