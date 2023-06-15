@@ -86,7 +86,7 @@ const getClients = async (req, res) => {
                 )
             );
     } catch (error) {
-        return res.status(404).json({ msg: " um erro aconteceu" });
+        return res.status(200).json({ msg: " um erro aconteceu" });
     }
 };
 

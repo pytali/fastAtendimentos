@@ -1,10 +1,8 @@
 //Feito apenas para testes -- OK
-const test = async () => {
-    const response = await fetch("http://127.0.0.1:3333/").then((response) => {
-        return response.json();
-    });
-    console.log(response);
-};
+"use-strict";
+
+import fetchData from "./api.js"; // lembrar de colocar o .js no arquivo
+
 function app() {
     const btnOpa = document.querySelector("#opcao-opa");
     const btnRamal = document.querySelector("#opcao-ramal");
@@ -47,22 +45,25 @@ function app() {
 
     const form = document.querySelector("#infos-contato");
 
-    form.addEventListener("submit", test());
+    form.addEventListener("submit", coletarInfos);
 
-    infosColetadas = [];
+    //infosColetadas = [];
 
-    function coletarInfos(e) {
+    async function coletarInfos(e) {
         e.preventDefault();
 
         const contratoInfo = form.querySelector("#contrato-cliente");
         const contanteInfo = form.querySelector("#contatante");
         const telefoneInfo = form.querySelector("#telefone");
 
-        infosColetadas.push({
+        const dataIxc = await fetchData(contratoInfo.value);
+
+        console.log(dataIxc);
+        const infosColetadas = {
             contratoCliente: contratoInfo.value,
             contato: contanteInfo.value,
             telefone: telefoneInfo.value,
-        });
+        };
 
         const btnGerarAtendimento =
             document.querySelector("#gerar-atendimento");
