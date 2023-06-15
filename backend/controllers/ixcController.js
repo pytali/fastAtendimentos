@@ -1,3 +1,5 @@
+const { json } = require("express");
+
 require("dotenv").config(); // require for .env archive
 
 const token = process.env.TOKEN_BD; // variable of token
@@ -25,7 +27,9 @@ const getClients = async (req, res) => {
         }
     )
         .then((data) => data.json())
-        .catch((error) => console.log(error));
+        .catch((error) => {
+            return res.status(404);
+        });
     const fetchDataLogin = await fetch(
         "https://ixc.brasildigital.net.br/webservice/v1/radusuarios",
         {
@@ -47,7 +51,7 @@ const getClients = async (req, res) => {
     )
         .then((data) => data.json())
         .catch((error) => {
-            return error;
+            return res.status(404), json({ msg: error });
         });
 
     const normalizeData = (
@@ -71,12 +75,19 @@ const getClients = async (req, res) => {
         };
         return newData;
     };
-
-    return res
-        .status(200)
-        .json(
-            normalizeData(fetchDataCliente.registros, fetchDataLogin.registros)
-        );
+    // Try catch to don't break the app
+    try {
+        return res
+            .status(200)
+            .json(
+                normalizeData(
+                    fetchDataCliente.registros,
+                    fetchDataLogin.registros
+                )
+            );
+    } catch (error) {
+        return res.status(404).json({ msg: " um erro aconteceu" });
+    }
 };
 
 module.exports = {
