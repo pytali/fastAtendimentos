@@ -1,6 +1,11 @@
 
+const envpath = "./.env";
+
+const error = {true: {error: true},
+    "false": { error: false}};
+
 require("dotenv").config({
-    path: "./.env",
+    path: envpath,
 }); // require for .env archive
 
 const token = process.env.TOKEN_BD; // variable of token
@@ -9,6 +14,12 @@ const token = process.env.TOKEN_BD; // variable of token
 // get clients fanta *Para testes*
 // eslint-disable-next-line no-unused-vars
 const getClients = async (req, res) => {
+
+    if(!token) {
+        res.status(500).send({...error.true, code: 500, message: `Token nao encontrato em ${envpath}`});
+        console.error(new Error("Token nao encontrado"));
+        return;
+    }
 
     const {cpf} = req.query;
 
@@ -31,7 +42,7 @@ const getClients = async (req, res) => {
                 sortorder: "desc"
             }),
         }
-    ).then((data) => data.json());
+    );
     // fetch(
     //     "https://ixc.brasildigital.net.br/webservice/v1/radusuarios",
     //     {
@@ -54,9 +65,20 @@ const getClients = async (req, res) => {
     //     .then((data) => data.json())
     // ]);
 
+    const DataClienteValidate = await fetchDataCliente;
+
+    if(DataClienteValidate.status !== 200) {
+        return res.status(DataClienteValidate.status).send({...error.true, code: DataClienteValidate.status,  message: "Token invalido"});
+
+    }
+    const DataClienteResponse = await DataClienteValidate.json();
+
     // const data1 = await fetchDataCliente;
     // const data2 = await fetchDataLogin;
-    return res.status(200).send(fetchDataCliente);
+    if (DataClienteResponse.total === 0){
+        return res.status(404).send({...error.true, code: 505,  message: `CPF ${cpf} nao encontrado`});
+    }
+    return res.status(200).send(JSON.stringify({...error.false, data: DataClienteResponse.registros}));
     // console.log(data1);
     // console.log(data2);
 };
