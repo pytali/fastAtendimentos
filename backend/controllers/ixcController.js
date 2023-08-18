@@ -1,8 +1,13 @@
-
 const envpath = "./.env";
 
-const error = {true: {error: true},
-    "false": { error: false}};
+const error = {
+    true: {error: true}, "false": {error: false}
+};
+
+const errorMessage = {
+    401: "Token nao encontrado",
+    404: "Endpoint invalido ",
+    505: "CPF/CNPJ nao encontrado: "};
 
 require("dotenv").config({
     path: envpath,
@@ -11,11 +16,10 @@ require("dotenv").config({
 const token = process.env.TOKEN_BD; // variable of token
 
 
-// get clients fanta *Para testes*
 // eslint-disable-next-line no-unused-vars
 const getClients = async (req, res) => {
 
-    if(!token) {
+    if (!token) {
         res.status(500).send({...error.true, code: 500, message: `Token nao encontrato em ${envpath}`});
         console.error(new Error("Token nao encontrado"));
         return;
@@ -23,26 +27,21 @@ const getClients = async (req, res) => {
 
     const {cpf} = req.query;
 
-    const fetchDataCliente = await fetch(
-        "https://ixc.brasildigital.net.br/webservice/v1/cliente",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Basic " + Buffer.from(token).toString("base64"),
-                ixcsoft: "listar",
-            },
-            body: JSON.stringify({
-                qtype: "cnpj_cpf",
-                query: `${cpf}`,
-                oper: "=",
-                page: "1",
-                rp: "20",
-                sortname: "cliente.id",
-                sortorder: "desc"
-            }),
-        }
-    );
+    const fetchDataClient = await fetch("https://ixc.brasildigital.net.br/webservice/v1/cliente", {
+        method: "POST", headers: {
+            "Content-Type": "application/json",
+            Authorization: "Basic " + Buffer.from(token).toString("base64"),
+            ixcsoft: "listar",
+        }, body: JSON.stringify({
+            qtype: "cnpj_cpf",
+            query: `${cpf}`,
+            oper: "=",
+            page: "1",
+            rp: "20",
+            sortname: "cliente.id",
+            sortorder: "desc"
+        }),
+    });
     // fetch(
     //     "https://ixc.brasildigital.net.br/webservice/v1/radusuarios",
     //     {
@@ -65,18 +64,20 @@ const getClients = async (req, res) => {
     //     .then((data) => data.json())
     // ]);
 
-    const DataClienteValidate = await fetchDataCliente;
+    const DataClientValidate = await fetchDataClient;
 
-    if(DataClienteValidate.status !== 200) {
-        return res.status(DataClienteValidate.status).send({...error.true, code: DataClienteValidate.status,  message: "Token invalido"});
+    if (DataClientValidate.status !== 200) {
+        return res.status(DataClientValidate.status).send({
+            ...error.true, code: DataClientValidate.status, message: errorMessage[DataClientValidate.status]
+        });
 
     }
-    const DataClienteResponse = await DataClienteValidate.json();
+    const DataClienteResponse = await DataClientValidate.json();
 
     // const data1 = await fetchDataCliente;
     // const data2 = await fetchDataLogin;
-    if (DataClienteResponse.total === 0){
-        return res.status(404).send({...error.true, code: 505,  message: `CPF ${cpf} nao encontrado`});
+    if (DataClienteResponse.total === 0) {
+        return res.status(404).send({...error.true, code: 505, message: errorMessage[505]+ cpf});
     }
     return res.status(200).send(JSON.stringify({...error.false, data: DataClienteResponse.registros}));
     // console.log(data1);
