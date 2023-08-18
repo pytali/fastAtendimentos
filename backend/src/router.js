@@ -3,6 +3,6 @@ const ixcController = require("../controllers/ixcController"); // import control
 
 const router = express.Router(); // init router
 
-router.get("/", ixcController.getClients); // first endpoint
+router.get("/", ixcController); // first endpoint
 
 module.exports = router;
